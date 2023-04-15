@@ -17,7 +17,7 @@ import java.util.List;
 public class PostOutDto {
 
     private String postTitle;
-    private UserDto userDto;
+    private User user;
     private String postContent;
     private String postOriginId;
 //    private List<Comment> comments;

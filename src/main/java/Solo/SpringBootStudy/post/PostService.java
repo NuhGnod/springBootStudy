@@ -52,19 +52,14 @@ public class PostService {
         List<Post> all = postRepository.findAll();
         List<PostOutDto> dtos = new ArrayList<>();
         for (Post p : all) {
-            UserDto build1 = UserDto.builder()
-                    .password(p.getUser().getPassword())
-                    .name(p.getUser().getName())
-                    .userId(p.getUser().getUserId())
 
-                    .build();
 
             PostOutDto build = PostOutDto.builder()
 //                    .comments(p.getComments())
                     .postContent(p.getPostContent())
                     .postTitle(p.getPostTitle())
                     .postOriginId(p.getPostOriginId())
-                    .userDto(build1).build();
+                    .user(p.getUser()).build();
 
 
             dtos.add(build);
