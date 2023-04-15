@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
     private final CommentService commentService;
     @PostMapping("/comment")
-    public ResponseEntity<Comment> createComment(@RequestBody CommentDto commentDto) {
+    public ResponseEntity<Comment> createComment(@RequestBody CommentDto commentDto) { //comment 엔티티에서 post엔티티와 양방향 매핑으로 인해 entity를 반환하므로 순환참조발생.
         return new ResponseEntity<Comment>( commentService.createComment(commentDto), HttpStatus.OK);
     }
 }
