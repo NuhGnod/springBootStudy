@@ -17,7 +17,7 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     //    Optional<Post> findByPostOriginId(String postOriginId);
 
 //    @Query("select p from Post p join fetch p.user left outer join fetch p.comments")
-//    @Query("select p from Post p join fetch p.user")
+    @Query("select p from Post p join fetch p.user")
     @Override
     List<Post> findAll();
 
