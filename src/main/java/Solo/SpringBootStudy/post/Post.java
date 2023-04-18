@@ -3,6 +3,8 @@ package Solo.SpringBootStudy.post;
 import Solo.SpringBootStudy.BaseEntity;
 import Solo.SpringBootStudy.User;
 import Solo.SpringBootStudy.comment.Comment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Post extends BaseEntity {
     private String postTitle;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 

@@ -48,20 +48,15 @@ public class PostService {
 
     @Transactional
     public List<PostOutDto> getPosts() {
-        System.out.println("전체 게시글 조회 ============");
+        System.out.println("getPosts() 전체 게시글 조회 메서드 ============");
         List<Post> all = postRepository.findAll();
         List<PostOutDto> dtos = new ArrayList<>();
         for (Post p : all) {
-
-
             PostOutDto build = PostOutDto.builder()
-//                    .comments(p.getComments())
                     .postContent(p.getPostContent())
                     .postTitle(p.getPostTitle())
                     .postOriginId(p.getPostOriginId())
                     .user(p.getUser()).build();
-
-
             dtos.add(build);
         }
 
