@@ -17,7 +17,7 @@ public class PostController {
     }
 
     @GetMapping("/post/{postOriginId}")
-    public ResponseEntity<Post> getPost(@PathVariable String postOriginId) {
+    public ResponseEntity<PostDetailDto> getPost(@PathVariable String postOriginId) {
 
         return new ResponseEntity( postService.getPost(postOriginId), HttpStatus.OK);
 
