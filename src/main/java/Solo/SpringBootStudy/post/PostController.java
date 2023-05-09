@@ -17,17 +17,21 @@ public class PostController {
     }
 
     @GetMapping("/post/{postOriginId}")
-    public ResponseEntity<Post> getPost(@PathVariable String postOriginId) {
+    public ResponseEntity<PostDetailDto> getPost(@PathVariable String postOriginId) {
 
         return new ResponseEntity( postService.getPost(postOriginId), HttpStatus.OK);
 
     }
     @GetMapping("/post")
     public ResponseEntity<List<PostOutDto>> getPosts() {
-        System.out.println("컨트롤러  ==========================");
         List<PostOutDto> posts = postService.getPosts();
+        System.out.println("컨트롤러단. 프록시 조회 =======================");
+//        posts.get(0).getUser().getUserId();
+//        posts.get(1).getUser().getUserId();
+//        posts.get(2).getUser().getUserId();
+//        posts.get(3).getUser().getUserId();
 
-        System.out.println("리턴문  ==========================");
+        System.out.println("컨트롤러단. responseEntity 내려줄 때  ==========================");
         return new ResponseEntity( posts, HttpStatus.OK);
 
     }
