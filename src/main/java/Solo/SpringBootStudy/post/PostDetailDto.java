@@ -1,8 +1,8 @@
 package Solo.SpringBootStudy.post;
 
 import Solo.SpringBootStudy.User;
-import Solo.SpringBootStudy.UserDto;
 import Solo.SpringBootStudy.comment.Comment;
+import Solo.SpringBootStudy.comment.CommentDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,11 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class PostOutDto {
-
+public class PostDetailDto {
     private String postTitle;
     private User user;
     private String postContent;
     private String postOriginId;
-//    private List<Comment> comments;
+    private List<CommentDto> comments;
+
 }

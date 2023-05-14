@@ -3,6 +3,8 @@ package Solo.SpringBootStudy.post;
 import Solo.SpringBootStudy.User;
 import Solo.SpringBootStudy.UserDto;
 import Solo.SpringBootStudy.UserRepository;
+import Solo.SpringBootStudy.comment.Comment;
+import Solo.SpringBootStudy.comment.CommentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,36 +39,44 @@ public class PostService {
     }
 
     @Transactional
-    public Post getPost(String postOriginId) {
+    public PostDetailDto getPost(String postOriginId) {
         System.out.println("게시글 조회 =======================================");
 
         Optional<Post> byPostOriginId = postRepository.findByPostOriginId(postOriginId);
-        System.out.println("byPostOriginId = " + byPostOriginId.get().toString());
-        return
-                byPostOriginId.get();
+        Post post = byPostOriginId.get();
+        List<Comment> comments = post.getComments();
+        List<CommentDto> commentDtos = new ArrayList<>();
+        for (Comment comm : comments) {
+            CommentDto build = CommentDto.builder()
+                    .commentOriginId(comm.getCommentOriginId())
+                    .userId(comm.getUser().getUserId())
+                    .postOriginId(comm.getPost().getPostOriginId())
+                    .content(comm.getCommentContent())
+                    .build();
+            commentDtos.add(build);
+        }
+        PostDetailDto dtoBuilder = PostDetailDto.builder()
+                .postTitle(post.getPostTitle())
+                .user(post.getUser())
+                .postContent(post.getPostContent())
+                .postOriginId(post.getPostOriginId())
+                .comments(commentDtos)
+                .build();
+
+        return dtoBuilder;
     }
 
     @Transactional
     public List<PostOutDto> getPosts() {
-        System.out.println("전체 게시글 조회 ============");
+        System.out.println("getPosts() 전체 게시글 조회 메서드 ============");
         List<Post> all = postRepository.findAll();
         List<PostOutDto> dtos = new ArrayList<>();
         for (Post p : all) {
-            UserDto build1 = UserDto.builder()
-                    .password(p.getUser().getPassword())
-                    .name(p.getUser().getName())
-                    .userId(p.getUser().getUserId())
-
-                    .build();
-
             PostOutDto build = PostOutDto.builder()
-//                    .comments(p.getComments())
                     .postContent(p.getPostContent())
                     .postTitle(p.getPostTitle())
                     .postOriginId(p.getPostOriginId())
-                    .userDto(build1).build();
-
-
+                    .user(p.getUser()).build();
             dtos.add(build);
         }
 
